@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav ">
                     <li class="nav-item ">
-                        <a class="nav-link text-white" href="home">หน้าหลัก</a>
+                        <a class="nav-link text-white" href="${pageContext.request.contextPath}/">หน้าหลัก</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white col-sm-3" href="#" role="button" data-bs-toggle="dropdown">แบบฟอร์มคำร้องขอ</a>
