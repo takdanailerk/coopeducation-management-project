@@ -34,7 +34,6 @@ import itsci.mju.coopeducation_management_project.service.CoopEducationService;
 import itsci.mju.coopeducation_management_project.service.CoopEducationServiceImpl;
 import itsci.mju.coopeducation_management_project.service.DocumentService;
 import itsci.mju.coopeducation_management_project.service.MajorService;
-import itsci.mju.coopeducation_management_project.service.PdfService;
 import itsci.mju.coopeducation_management_project.service.StudentService;
 
 @Controller
@@ -44,9 +43,6 @@ public class FacultyController {
 	
 	@Autowired
 	private CoopEducationService coopEducationService;
-	
-	@Autowired
-	private PdfService pdfService;
 	
 	@Autowired
 	private MajorService majorService;
@@ -118,20 +114,6 @@ public class FacultyController {
 		coopEducationService.deleteCoopEducation(Long.valueOf(coopEduId));
 		return "redirect:/request-form/list-request-form-page";
 	}
-	
-	@GetMapping("/generate-pdf")
-    public ResponseEntity<InputStreamResource> exportPdf() {
-        ByteArrayInputStream bis = pdfService.generatePdfReport();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=report.pdf");
-
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(bis));
-    }
 	
 //	@PostMapping(value = "/generate-pdf", produces = MediaType.APPLICATION_PDF_VALUE)
 //    public ResponseEntity<byte[]> generatePdf(@RequestBody Map<String, Object> jsonData) throws IOException {

@@ -271,7 +271,7 @@ public class CoopEducationServiceImpl implements CoopEducationService{
 	@Override
 	public void deleteCoopEducation(Long coopEduId) {
 		// TODO Auto-generated method stub
-		acceptanceRepository.deleteByCoopEduId(coopEduId);
+		//acceptanceRepository.deleteByCoopEduId(coopEduId);
 	    coopEducationRepository.deleteById(coopEduId);
 		
 	}

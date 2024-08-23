@@ -3,8 +3,6 @@ package itsci.mju.coopeducation_management_project.model;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.element.Paragraph;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,7 +30,7 @@ public class Document {
     
     @Lob
     @Column(name = "fileData",columnDefinition = "LONGBLOB")
-    private byte[] fileData;
+    private byte[] fileData; //file
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
@@ -47,12 +45,6 @@ public class Document {
 		this.docType = docType;
 		this.fileData = fileData;
 		this.student = student;
-	}
-
-	
-
-	public Document(PdfDocument pdf) {
-		// TODO Auto-generated constructor stub
 	}
 
 

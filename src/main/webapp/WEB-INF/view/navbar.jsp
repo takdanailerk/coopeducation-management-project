@@ -11,7 +11,6 @@
 </head>
 <body>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <div class="container-fluid p-5 bg-success text-center">
     <h1 class="text-white" >ระบบสหกิจศึกษาคณะวิทยาศาสตร์ มหาวิทยาลัยแม่โจ้</h1>
 </div>
@@ -20,7 +19,6 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav ">
                 <!-- เมนูสำหรับผู้ใช้ที่มี Role USER -->
-                <sec:authorize access="hasRole('ROLE_USER')">
                     <li class="nav-item ">
                         <a class="nav-link text-white" href="${pageContext.request.contextPath}/home">หน้าหลัก</a>
                     </li>
@@ -39,17 +37,14 @@
                         </ul>
                     </li>
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/view-status">ดูสถานะ</a></li>
-                    </sec:authorize>
                     
                     <!-- เมนูสำหรับผู้ใช้ที่มี Role ADMIN -->
-                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/add-major-page">เพิ่มสาขา</a></li>
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/list-major-page">รายชื่อสาขา</a></li>
 	                <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/register-form">ลงทะเบียน</a></li>
                     
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/faculty/list-coopeducation-page">รายการคำร้องขอฝึกงานและขอสหกิจศึกษา</a></li>
                     
-                    </sec:authorize>
                     <li class="nav-item"> <a class="nav-link boder-button" href="${pageContext.request.contextPath}/logout">ออกจากระบบ</a></li>
 
                 </ul>

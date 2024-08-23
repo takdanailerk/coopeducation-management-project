@@ -22,7 +22,7 @@ public interface AcceptanceRepository extends JpaRepository<AcceptanceStatus,Lon
 
 	
 	
-	void deleteByCoopEduId(Long coopEduId);
+	//void deleteByCoopEduId(Long coopEduId);
 	
 
 //	List<Document> findDocuments_ByCoopEduId(Long coopEduId);

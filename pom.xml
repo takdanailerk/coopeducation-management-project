@@ -77,32 +77,6 @@
 		    <artifactId>spring-boot-devtools</artifactId>
 		    <version>3.3.1</version>
 		</dependency>
-		
-		<!-- security() -->
-		<dependency>
-    		<groupId>org.springframework.boot</groupId>
-    		<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		
-		<!-- ใช้ Spring Security Taglibs ใน JSP -->
-		<dependency>
-    		<groupId>org.springframework.security</groupId>
-    		<artifactId>spring-security-taglibs</artifactId>
-    		 <version>6.1.0</version>
-		</dependency>
-		
-		<!-- Password Encoder (BCrypt) -->
-		<dependency>
-        	<groupId>org.springframework.security</groupId>
-        	<artifactId>spring-security-crypto</artifactId>
-    	</dependency>
-    	
-    	<!-- Export Pdf  -->
-    	<dependency>
-    		<groupId>com.itextpdf</groupId>
-    			<artifactId>itext7-core</artifactId>
-    		<version>7.2.2</version>
-		</dependency>
     	
 	</dependencies>
 	
