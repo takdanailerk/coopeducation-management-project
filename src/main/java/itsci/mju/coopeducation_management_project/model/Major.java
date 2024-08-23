@@ -2,8 +2,11 @@ package itsci.mju.coopeducation_management_project.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,6 +15,7 @@ import jakarta.persistence.Table;
 public class Major {
 
 	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long majorId;
 	
 	private String majorName;
@@ -19,7 +23,13 @@ public class Major {
 	private String majorFax;
 	private String majorEmail;
 	
-	public Major () {}
+//	 @OneToOne(cascade = CascadeType.ALL)
+//	    @JoinColumn(name = "staffId")
+//	    private Staff staff;
+	
+	public Major () {
+		
+	}
 	
 	public Major(Long majorId, String majorName, String majorPhoneNo, String majorFax, String majorEmail) {
 		super();
@@ -29,6 +39,17 @@ public class Major {
 		this.majorFax = majorFax;
 		this.majorEmail = majorEmail;
 	}
+
+//	public Major(Long majorId, String majorName, String majorPhoneNo, String majorFax, String majorEmail, Staff staff) {
+//		super();
+//		this.majorId = majorId;
+//		this.majorName = majorName;
+//		this.majorPhoneNo = majorPhoneNo;
+//		this.majorFax = majorFax;
+//		this.majorEmail = majorEmail;
+//		this.staff = staff;
+//	}
+
 
 	public Long getMajorId() {
 		return majorId;
@@ -69,5 +90,16 @@ public class Major {
 	public void setMajorEmail(String majorEmail) {
 		this.majorEmail = majorEmail;
 	}
+
+
+//	public Staff getStaff() {
+//		return staff;
+//	}
+//
+//
+//	public void setStaff(Staff staff) {
+//		this.staff = staff;
+//	}
+//	
 	
 }

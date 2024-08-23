@@ -9,8 +9,12 @@ public interface MajorService {
 
 	List<Major> getAllMajors();
 	Major getMajorById(Long majorId);
-	Major addMajor(Map<String, String> requestBody);
-	Major updateMajor(Major updatedMajor);
+	void addMajor(Map<String, String> requestBody);
+//	void updateMajorAndStaff(Map<String, String> requestParams);
 	void deleteMajor(Long majorId);
+	Major updateMajor(Major updateMajor);
 	
+//	Staff getStaffById(Long staffId);
+//    void updateMajor(Long staffId, Staff staff);
+//	
 }

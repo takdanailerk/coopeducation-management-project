@@ -9,32 +9,31 @@
 <body>
 <%@include file="navbar.jsp" %>
 <div class="container">
-    <h2>List of Majors</h2>
+    <h2>รายการ สาขา คณะวิทยาศาสตร์</h2>
     <table border="1">
         <tr>
-            <th>Major ID</th>
-            <th>Major Name</th>
-            <th>Phone No</th>
-            <th>Fax</th>
-            <th>Email</th>
-            <th>Actions</th>
+            <th>ลำดับที่</th>
+            <th>ชื่อ สาขา</th>
+            <th>เบอร์โทรศัพท์</th>
+            <th>อีเมล์</th>
+            <th>อาจารย์ ประจำสาขา</th>
+            <th>แก้ไข/ลบ</th>
         </tr>
-    <c:forEach var="major" items="${majors}">
-        <tr>
-            <td>${major.majorId}</td>
-            <td>${major.majorName}</td>
-            <td>${major.majorPhoneNo}</td>
-            <td>${major.majorFax}</td>
-            <td>${major.majorEmail}</td>
-            <td>
-                <a href="${pageContext.request.contextPath}/majors/update-major-page/${major.majorId}">Edit</a>
-                <a href="${pageContext.request.contextPath}/majors/delete/${major.majorId}">Delete</a>
-            </td>
-        </tr>
-    </c:forEach>
+        <c:forEach var="staff" items="${staffs}">
+            <tr>
+                <td>${staff.major.majorId}</td>
+                <td>${staff.major.majorName}</td>
+                <td>${staff.major.majorPhoneNo}</td>
+                <td>${staff.major.majorEmail}</td>
+                <td>${staff.staffName} ${staff.staffSurname}</td>
+                <td>
+                    <a href="update-major-page/${staff.staffId}">แก้ไข</a>
+                    <a href="delete/${staff.staffId}">ลบ</a>
+                </td>
+            </tr>
+        </c:forEach>
     </table>
-    <a href="${pageContext.request.contextPath}/majors/add-major-page">Add New Major</a>
-
+    <a href="add-major-page" >กลับไปหน้า ฟอร์มสาขา</a>
 </div>
 <%@include file="footer.jsp" %>
 </body>

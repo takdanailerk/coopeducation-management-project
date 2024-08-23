@@ -10,29 +10,39 @@
 <body>
 <%@include file="navbar.jsp" %>
 
-<form:form modelAttribute="major" action="${pageContext.request.contextPath}/majors/update/${major.majorId}" method="post">
+<form:form modelAttribute="staff" action="${pageContext.request.contextPath}/majors/update/${staff.staffId}" method="post">
     <div class="container ">
         <div class="form-group row mb-3">
             <h2>Edit Major</h2>
         </div>
-        <div class="form-group row mb-3">
+       <div class="form-group row mb-3">
             <div class="col-sm-2 control-label">ชื่อสาขา :</div>
             <div class="col-sm-3">
-                <form:input path="majorName"/>
+                <form:input path="major.majorName"/>
             </div>
-            <div class="col-sm-1 control-label">โทรศัพท์ :</div>
+            <div class="col-sm-1 control-label">เบอร์โทรศัพท์ :</div>
             <div class="col-sm-3">
-                <form:input path="majorPhoneNo"/>
+                <form:input path="major.majorPhoneNo"/>
             </div>
         </div>
         <div class="form-group row mb-3">
-            <div class="col-sm-2 control-label">Fax :</div>
+            <div class="col-sm-2 control-label">เบอร์โทรสาร :</div>
             <div class="col-sm-3">
-                <form:input path="majorFax"/>
+                <form:input path="major.majorFax"/>
             </div>
-            <div class="col-sm-1 control-label">Email :</div>
+            <div class="col-sm-1 control-label">อีเมล์ :</div>
             <div class="col-sm-3">
-                <form:input path="majorEmail"/>
+                <form:input path="major.majorEmail"/>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <div class="col-sm-2 control-label">ชื่ออาจารย์ ผู้รับผิดชอบ :</div>
+            <div class="col-sm-3">
+                <form:input path="staffName"/>
+            </div>
+            <div class="col-sm-1 control-label">นามสกุล :</div>
+            <div class="col-sm-3">
+                <form:input path="staffSurname"/>
             </div>
         </div>
         <div class="form-group row mb-3">

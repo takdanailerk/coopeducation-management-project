@@ -10,4 +10,5 @@ public class CoopeducationManagementProjectApplication {
 		SpringApplication.run(CoopeducationManagementProjectApplication.class, args);
 	}
 
+	
 }
