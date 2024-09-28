@@ -3,8 +3,12 @@ package itsci.mju.coopeducation_management_project.service;
 import java.awt.Font;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,6 +58,8 @@ import jakarta.persistence.ManyToOne;
 
 @Service
 public class CoopEducationServiceImpl implements CoopEducationService{
+
+	private static final String UPLOAD_DIR = "";
 
 	@Autowired
 	private CoopEducationRepository coopEducationRepository;
@@ -192,60 +198,156 @@ public class CoopEducationServiceImpl implements CoopEducationService{
 		int studentIndex = 0;
 //		int filesPerStudent = docNames.size() / studentNames.size();
 		
-		for (int i = 0; i < studentNames.size(); i++) {
+		int filesPerStudent = docNames.size() / studentIds.size();
+		int fileIndex = 0; 
+		
+		for (int i = 0; i < studentIds.size(); i++) {
 		    Student student = new Student();
 		    student.setStudentName(studentNames.get(i));
 		    student.setStudentLastname(studentLastnames.get(i));
 		    student.setStudentId(studentIds.get(i));
 		    student.setStudentPhoneNo(studentPhoneNos.get(i));
 		    student.setStudentEmail(studentEmails.get(i));
-		    studentService.addStudent(student);
-		    
-		    // Fetch the student just saved or already existing
-		    Student existStudent = studentService.getStudentById(studentIds.get(i));
-		    
-		    // Process documents for the current student
-		    int MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB
-//		    Long maxDocId = ((documentRepository.getMaxDocId() == null) ? 0 : documentRepository.getMaxDocId()) + 1;
 
-		    // Loop through the documents associated with this student
-		    for (int j = studentIndex; j < docNames.size(); j++) {
-		        MultipartFile file = docNames.get(j);
-		        
-		        if (file.getSize() > MAX_FILE_SIZE) {
-		            throw new IllegalStateException("File size exceeds the maximum limit");
+		    // บันทึกนักเรียน
+		    studentService.addStudent(student);
+
+		    Student existStudent = studentService.getStudentById(studentIds.get(i));
+
+		    // จัดการไฟล์ที่สัมพันธ์กับนักเรียนคนนี้
+		    for (int j = 0; j < filesPerStudent; j++) {
+		        if (fileIndex < docNames.size()) {
+		            MultipartFile file = docNames.get(fileIndex++);
+		            if (!file.isEmpty()) {
+		                // บันทึกไฟล์ไปยังเซิร์ฟเวอร์
+		                String filePath = UPLOAD_DIR + file.getOriginalFilename();
+		                File serverFile = new File(filePath);
+		                file.transferTo(serverFile);
+
+		                // สร้างและบันทึก Document
+		                Document document = new Document();
+		                document.setDocName(file.getOriginalFilename());
+		                document.setUploadDate(new java.sql.Date(new Date().getTime())); // บันทึกวันที่ปัจจุบัน
+		                document.setDocType(file.getContentType());
+		                document.setFilePath(filePath); // เก็บ path ของไฟล์ที่บันทึก
+		                document.setStudent(existStudent);  // สมมติว่าคุณมี student entity ที่กำหนดไว้แล้ว
+
+		                // บันทึก document ลงในฐานข้อมูล
+		                documentService.addDocument(document);
+		            }
 		        }
-		        // Save the document
-		        Document document = new Document();
-//		        Long docId = ++maxDocId; // Increment docId for each new document
-//		        document.setDocId(docId);
-		        document.setDocName(file.getOriginalFilename());
-		        document.setUploadDate(new java.sql.Date(new Date().getTime()));
-		        document.setDocType(file.getContentType());
-		        document.setFileData(file.getBytes());
-		        document.setStudent(existStudent);
-		        documentRepository.save(document);
-		        
-		     // If this is the last document for the current student, update the index and break the loop
-		        if ((j + 1) % (docNames.size() / studentNames.size()) == 0) {
-		            studentIndex = j + 1; // Update the index for the next student
-		            break; // Exit the inner loop to move on to the next student
-		        }
-			}
+		    }
+		    
+		    Long acceptStatId = ((acceptanceRepository.getMaxAcceptenceId() == null )? 0 : acceptanceRepository.getMaxAcceptenceId()) + 1;
+    		String acceptStatus =  requestBody.get("acceptStatus");
+
+    		AcceptanceStatus acceptance = new AcceptanceStatus();
+    		acceptance.setAcceptStatId(acceptStatId);
+    		acceptance.setAcceptStatus("กำลังจัดส่งเอกสาร");
+    		acceptance.setCoopEducation(coopEducation);
+    		acceptance.setStudent(existStudent);
+    		acceptanceRepository.save(acceptance);
+    	    }
+		}
+		
+	
+	
+		
+//		for (int i = 0; i < studentIds.size(); i++) {
+//            Student student = new Student();
+//            student.setStudentName(studentNames.get(i));
+//		    student.setStudentLastname(studentLastnames.get(i));
+//		    student.setStudentId(studentIds.get(i));
+//		    student.setStudentPhoneNo(studentPhoneNos.get(i));
+//		    student.setStudentEmail(studentEmails.get(i));
+//
+//
+////            // บันทึกนักเรียน
+////            studentService.addStudent(student);
+//
+//            Student existStudent = studentService.getStudentById(studentIds.get(i));
+//            // จัดการไฟล์สำหรับนักเรียนแต่ละคน
+////            List<MultipartFile> docName = (List<MultipartFile>) docNames.get(i);
+//            
+//            for (MultipartFile file : docNames) { // วนลูปผ่าน docNames โดยตรง
+//                if (!file.isEmpty()) {
+//                    // บันทึกไฟล์ไปยังเซิร์ฟเวอร์
+//                    String filePath = UPLOAD_DIR + file.getOriginalFilename();
+//                    File serverFile = new File(filePath);
+//                    file.transferTo(serverFile);
+//
+//                    // สร้างและบันทึก Document
+//                    Document document = new Document();
+//                    document.setDocName(file.getOriginalFilename());
+//                    document.setUploadDate(new java.sql.Date(new Date().getTime())); // บันทึกวันที่ปัจจุบัน
+//                    document.setDocType(file.getContentType());
+//                    document.setFilePath(filePath); // เก็บ path ของไฟล์ที่บันทึก
+//                    document.setStudent(student);  // สมมติว่าคุณมี student entity ที่กำหนดไว้แล้ว
+//
+//                    // บันทึก document ลงในฐานข้อมูล
+//                    documentService.addDocument(document);
+//                }
+//            }
+//            Long acceptStatId = ((acceptanceRepository.getMaxAcceptenceId() == null )? 0 : acceptanceRepository.getMaxAcceptenceId()) + 1;
+//    		String acceptStatus =  requestBody.get("acceptStatus");
+//
+//    		AcceptanceStatus acceptance = new AcceptanceStatus();
+//    		acceptance.setAcceptStatId(acceptStatId);
+//    		acceptance.setAcceptStatus("กำลังจัดส่งเอกสาร");
+//    		acceptance.setCoopEducation(coopEducation);
+//    		acceptance.setStudent(existStudent);
+//    		acceptanceRepository.save(acceptance);
+//    	    }
+//        }
+
+		
+        
+        
+//		for (int i = 0; i < studentNames.size(); i++) {
+//		    Student student = new Student();
+//		    student.setStudentName(studentNames.get(i));
+//		    student.setStudentLastname(studentLastnames.get(i));
+//		    student.setStudentId(studentIds.get(i));
+//		    student.setStudentPhoneNo(studentPhoneNos.get(i));
+//		    student.setStudentEmail(studentEmails.get(i));
+//		    studentService.addStudent(student);
+//		    
+//		    // Fetch the student just saved or already existing
+//		    Student existStudent = studentService.getStudentById(studentIds.get(i));
+//		    
+//		    // Process documents for the current student
+//		    int MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB
+////		    Long maxDocId = ((documentRepository.getMaxDocId() == null) ? 0 : documentRepository.getMaxDocId()) + 1;
+//
+//		    // Loop through the documents associated with this student
+//		    for (int j = studentIndex; j < docNames.size(); j++) {
+//		        MultipartFile file = docNames.get(j);
+//		        
+////		        if (file.getSize() > MAX_FILE_SIZE) {
+////		            throw new IllegalStateException("File size exceeds the maximum limit");
+////		        }
+////		        // Save the document
+////		        Document document = new Document();
+//////		        Long docId = ++maxDocId; // Increment docId for each new document
+//////		        document.setDocId(docId);
+////		        document.setDocName(file.getOriginalFilename());
+////		        document.setUploadDate(new java.sql.Date(new Date().getTime()));
+////		        document.setDocType(file.getContentType());
+////		        document.setFileData(file.getBytes());
+////		        document.setStudent(existStudent);
+////		        documentRepository.save(document);
+//		        
+//		     // If this is the last document for the current student, update the index and break the loop
+//		        if ((j + 1) % (docNames.size() / studentNames.size()) == 0) {
+//		            studentIndex = j + 1; // Update the index for the next student
+//		            break; // Exit the inner loop to move on to the next student
+//		        }
+//			}
 		    
 //		      add acceptStatus------------------------------------------------
 
-		    Long acceptStatId = ((acceptanceRepository.getMaxAcceptenceId() == null )? 0 : acceptanceRepository.getMaxAcceptenceId()) + 1;
-			String acceptStatus =  requestBody.get("acceptStatus");
-
-			AcceptanceStatus acceptance = new AcceptanceStatus();
-			acceptance.setAcceptStatId(acceptStatId);
-			acceptance.setAcceptStatus("กำลังจัดส่งเอกสาร");
-			acceptance.setCoopEducation(coopEducation);
-			acceptance.setStudent(existStudent);
-			acceptanceRepository.save(acceptance);
-		    }
-		}
+		   
+		
 
 	// เมธอดแปลงวันที่เป็นรูปแบบไทย
     public static String formatThaiDate(Date date) {
@@ -276,8 +378,6 @@ public class CoopEducationServiceImpl implements CoopEducationService{
 		
 	}
 	
-	
-
 	
 
 //	@Override

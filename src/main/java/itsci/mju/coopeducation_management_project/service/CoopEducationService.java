@@ -25,7 +25,7 @@ public interface CoopEducationService {
 
 	void addCoopEducation(Long majorId, Long companyId, Map<String, String> requestBody, List<String> studentNames,
 			List<String> studentLastnames, List<String> studentIds, List<String> studentPhoneNos,
-			List<String> studentEmails, List<MultipartFile>docNames,Model model) throws IOException;
+			List<String> studentEmails,List<MultipartFile>docNames,Model model) throws IOException;
 	
 //	InputStream generatePdfFromJson(Map<String, Object> jsonData);
 	

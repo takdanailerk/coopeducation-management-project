@@ -36,9 +36,9 @@ public class StaffServiceImpl implements StaffService{
 	
 	
 	@Override
-	public Staff findByUsername(String username) {   
+	public Staff findByUsernameAndPassword(String username,String password) {   
 		// TODO 
-		return staffRepository.findByUsername(username);
+		return staffRepository.findByUsernameAndPassword(username,password);
 	}
 	
 	
@@ -48,11 +48,6 @@ public class StaffServiceImpl implements StaffService{
 //		return staffRepository.save(staff);
 //    }
 
-
-//	@Override
-//    public Optional<Staff> findByUsername(String username) {
-//        return Optional.ofNullable(staffRepository.findByUsername(username));
-//    }
 	
 	
 //	@Autowired

@@ -18,10 +18,11 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav ">
-                <!-- เมนูสำหรับผู้ใช้ที่มี Role USER -->
+                <!-- เมนูสำหรับผู้ใช้ที่มี Role USER <c:if test="${sessionScope.role == 'USER'}"> </c:if> -->
                     <li class="nav-item ">
                         <a class="nav-link text-white" href="${pageContext.request.contextPath}/home">หน้าหลัก</a>
                     </li>
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white col-sm-3" href="#" role="button" data-bs-toggle="dropdown">แบบฟอร์มคำร้องขอ</a>
                         <ul class="dropdown-menu">
@@ -38,12 +39,15 @@
                     </li>
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/view-status">ดูสถานะ</a></li>
                     
-                    <!-- เมนูสำหรับผู้ใช้ที่มี Role ADMIN -->
+                   
+                    <!-- เมนูสำหรับผู้ใช้ที่มี Role ADMIN  <c:if test="${sessionScope.role == 'ADMIN'}">  </c:if> -->
+                    
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/add-major-page">เพิ่มสาขา</a></li>
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/list-major-page">รายชื่อสาขา</a></li>
 	                <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/register-form">ลงทะเบียน</a></li>
                     
                     <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/faculty/list-coopeducation-page">รายการคำร้องขอฝึกงานและขอสหกิจศึกษา</a></li>
+                   
                     
                     <li class="nav-item"> <a class="nav-link boder-button" href="${pageContext.request.contextPath}/logout">ออกจากระบบ</a></li>
 

@@ -1,5 +1,6 @@
 package itsci.mju.coopeducation_management_project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,12 +26,11 @@ public class Student {
     private String studentPhoneNo;
     private String studentEmail;
     
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Document> documents;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Document> documents = new ArrayList<>();
     
     public Student() {
     }
-    
     
     
 	public List<Document> getDocuments() {

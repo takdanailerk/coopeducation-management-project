@@ -4,7 +4,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
 <%@include file="navbar.jsp" %>
@@ -15,20 +34,20 @@
             <th>ลำดับที่</th>
             <th>ชื่อ สาขา</th>
             <th>เบอร์โทรศัพท์</th>
+            <th>โทรสาร</th>
             <th>อีเมล์</th>
-            <th>อาจารย์ ประจำสาขา</th>
             <th>แก้ไข/ลบ</th>
         </tr>
-        <c:forEach var="staff" items="${staffs}">
+        <c:forEach var="major" items="${majors}">
             <tr>
-                <td>${staff.major.majorId}</td>
-                <td>${staff.major.majorName}</td>
-                <td>${staff.major.majorPhoneNo}</td>
-                <td>${staff.major.majorEmail}</td>
-                <td>${staff.staffName} ${staff.staffSurname}</td>
+                <td>${major.majorId}</td>
+                <td>${major.majorName}</td>
+                <td>${major.majorPhoneNo}</td>
+                <td>${major.majorFax}</td>
+                <td>${major.majorEmail}</td>
                 <td>
-                    <a href="update-major-page/${staff.staffId}">แก้ไข</a>
-                    <a href="delete/${staff.staffId}">ลบ</a>
+                    <a href="update-major-page/${major.majorId}">แก้ไข</a>
+                    <a href="delete/${major.majorId}">ลบ</a>
                 </td>
             </tr>
         </c:forEach>

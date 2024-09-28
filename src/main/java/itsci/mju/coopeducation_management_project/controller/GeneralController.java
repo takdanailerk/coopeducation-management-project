@@ -12,12 +12,6 @@ import itsci.mju.coopeducation_management_project.model.Staff;
 public class GeneralController {
 
 	
-	@GetMapping("/login")
-	public String goToLonginPage () {
-		return "login";
-	}
-	
-	
 //	@GetMapping("/home")
 //	public String goToHomePage () {
 //		return "home";

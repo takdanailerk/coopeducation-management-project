@@ -28,22 +28,20 @@ public class Document {
     private Date uploadDate;
     private String docType;
     
-    @Lob
-    @Column(name = "fileData",columnDefinition = "LONGBLOB")
-    private byte[] fileData; //file
+    private String filePath; //file
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "studentId")
     private Student student;
 
     
-    public Document(Long docId, String docName, Date uploadDate, String docType, byte[] fileData, Student student) {
+    public Document(Long docId, String docName, Date uploadDate, String docType, String filePath, Student student) {
 		super();
 		this.docId = docId;
 		this.docName = docName;
 		this.uploadDate = uploadDate;
 		this.docType = docType;
-		this.fileData = fileData;
+		this.filePath = filePath;
 		this.student = student;
 	}
 
@@ -87,12 +85,12 @@ public class Document {
 		this.docType = docType;
 	}
 
-	public byte[] getFileData() {
-		return fileData;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setFileData(byte[] fileData) {
-		this.fileData = fileData;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
 	public Student getStudent() {

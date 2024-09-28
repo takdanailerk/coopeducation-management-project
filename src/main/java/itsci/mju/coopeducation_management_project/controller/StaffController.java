@@ -27,11 +27,11 @@ public class StaffController {
 //    private BCryptPasswordEncoder passwordEncoder;
 	
 	
-	@GetMapping("/home")
-	public String goToHomePage () {
-		return "home";
-	}
-	
+//	@GetMapping("/home")
+//	public String goToHomePage () {
+//		return "home";
+//	}
+//	
 	@GetMapping("/register-form")
     public String showRegistrationForm(Model model) {
         model.addAttribute("staff", new Staff());

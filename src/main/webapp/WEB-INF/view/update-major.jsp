@@ -10,44 +10,38 @@
 <body>
 <%@include file="navbar.jsp" %>
 
-<form:form modelAttribute="staff" action="${pageContext.request.contextPath}/majors/update/${staff.staffId}" method="post">
+<form:form modelAttribute="major" action="${pageContext.request.contextPath}/majors/update/${major.majorId}" method="post">
     <div class="container ">
         <div class="form-group row mb-3">
             <h2>Edit Major</h2>
         </div>
        <div class="form-group row mb-3">
             <div class="col-sm-2 control-label">ชื่อสาขา :</div>
-            <div class="col-sm-3">
-                <form:input path="major.majorName"/>
+            <div class="col-sm-3" >
+                <form:input path="majorName"/>
             </div>
             <div class="col-sm-1 control-label">เบอร์โทรศัพท์ :</div>
             <div class="col-sm-3">
-                <form:input path="major.majorPhoneNo"/>
+                <form:input path="majorPhoneNo"/>
             </div>
         </div>
         <div class="form-group row mb-3">
-            <div class="col-sm-2 control-label">เบอร์โทรสาร :</div>
+            <div class="col-sm-2 control-label">โทรสาร :</div>
             <div class="col-sm-3">
-                <form:input path="major.majorFax"/>
+                <form:input path="majorFax"/>
             </div>
             <div class="col-sm-1 control-label">อีเมล์ :</div>
             <div class="col-sm-3">
-                <form:input path="major.majorEmail"/>
+                <form:input path="majorEmail"/>
             </div>
         </div>
         <div class="form-group row mb-3">
-            <div class="col-sm-2 control-label">ชื่ออาจารย์ ผู้รับผิดชอบ :</div>
-            <div class="col-sm-3">
-                <form:input path="staffName"/>
+        	<div class="col-sm-5"></div>
+            <div class="col-sm-1">
+                <button type="submit" class="btn btn-secondary value="update">บันทึก</button>
             </div>
-            <div class="col-sm-1 control-label">นามสกุล :</div>
             <div class="col-sm-3">
-                <form:input path="staffSurname"/>
-            </div>
-        </div>
-        <div class="form-group row mb-3">
-            <div class="col-sm-3">
-                <button type="submit" value="update">บันทึก</button>
+                <button type="button" class="btn btn-danger" onclick="window.location.href='/majors/list-major-page';">ยกเลิก</button>
             </div>
         </div>
     </div>

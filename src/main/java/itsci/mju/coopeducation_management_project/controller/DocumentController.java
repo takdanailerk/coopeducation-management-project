@@ -29,6 +29,11 @@ public class DocumentController {
 	@Autowired
     private DocumentRepository documentRepository;
 	
+	
+	
+	
+	
+	
 //	@GetMapping("/download-document/{docId}")
 //    public String getDocumentsByStudentId(@PathVariable Long docId, Model model) {
 //        Document documents = documentService.findById(docId);
@@ -36,16 +41,16 @@ public class DocumentController {
 //        return "documents";
 //    }
 //	
-	@GetMapping("/download-document/{docId}")
-    public ResponseEntity<byte[]> downloadDocument(@PathVariable Long docId) {
-    	Document document = documentRepository.findById(docId).orElseThrow(() -> new RuntimeException("Document not found"));
-        byte[] fileContent = document.getFileData();
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(document.getDocType()));
-        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(document.getDocName()).build());
-    	    
-    	    return new ResponseEntity<>(document.getFileData(), headers, HttpStatus.OK);
+//	@GetMapping("/download-document/{docId}")
+//    public ResponseEntity<byte[]> downloadDocument(@PathVariable Long docId) {
+//    	Document document = documentRepository.findById(docId).orElseThrow(() -> new RuntimeException("Document not found"));
+//        byte[] fileContent = document.getFileData();
+//        
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.parseMediaType(document.getDocType()));
+//        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(document.getDocName()).build());
+//    	    
+//    	    return new ResponseEntity<>(document.getFileData(), headers, HttpStatus.OK);
     	
     	
 //    	Document document = documentService.findById(docId);
@@ -70,5 +75,6 @@ public class DocumentController {
 //        } else {
 //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 //        }
-    }
+//    }
+	
 }

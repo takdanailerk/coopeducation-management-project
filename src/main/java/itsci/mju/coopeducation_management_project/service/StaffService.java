@@ -22,7 +22,7 @@ public interface StaffService {
 	Staff updateStaff(Staff updateStaff);
 	void deleteStaff(Long StaffId);
 	
-	Staff findByUsername(String username);
+	Staff findByUsernameAndPassword(String username,String password);
 	
 //	Staff registerStaff(Staff staff);
 	

@@ -35,7 +35,6 @@
     <a href="${pageContext.request.contextPath}/faculty/list-coopEducation-page">ไปยังหน้า กรอกแบบฟอร์ม</a>
     <table border="1">
         <tr>
-            
             <th>ลำดับที่</th>
             <th>คำร้องขอ</th>
             <th>ประเภทการปฎิบัติงาน</th>
@@ -58,7 +57,7 @@
                     </c:forEach>
                 </td>
                 <td>${entry.value.coopEducation.company.companyName}</td>
-                <td>ยังไม่ส่งตัว</td>
+                <td>ยังไม่ตรวจสอบ</td>
                 <td>
                     <a href="view-coop-requestform-detail-page/${entry.value.coopEducation.coopEduId}">ดูข้อมูล</a>
                 </td>
