@@ -14,6 +14,7 @@ public interface StaffRepository extends JpaRepository<Staff, Long>{
 	@Query(value = "SELECT s.staffId FROM staffs s ORDER BY s.staffId DESC LIMIT 1", nativeQuery = true)
     Long getMaxStaffId(); 
 	
+	Optional<Staff> findByUsernameEquals (String username);
 	
 	Staff findByUsernameAndPassword(String username,String password);
 	

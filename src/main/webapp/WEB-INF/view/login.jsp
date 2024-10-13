@@ -12,7 +12,7 @@
     <script src="http://localhost:35729/livereload.js"></script>
 </head>
 <body>
-    <form action="${pageContext.request.contextPath}/login" method="post" class="form-horizontal">
+    <form action="${pageContext.request.contextPath}/authenticate" method="post" class="form-horizontal">
         <div class="container">
         	<div class="form-group row mb-3"></div>
         	<div class="form-group row mb-3"></div>

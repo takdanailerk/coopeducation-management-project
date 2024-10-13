@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <title>ระบบสหกิจ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,33 +24,45 @@
                         <a class="nav-link text-white" href="${pageContext.request.contextPath}/home">หน้าหลัก</a>
                     </li>
                     
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white col-sm-3" href="#" role="button" data-bs-toggle="dropdown">แบบฟอร์มคำร้องขอ</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/request-form/add-request-form-page">ขอความอนุเคราะห์</a></li>
-                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/referral-form/add-referral-form-page">ขอส่งตัวนักศึกษา</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">รายการคำร้องขอ</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/request-form/list-request-page">รายการขอความอนุเคราะห์</a></li>
-                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/referral-form/list-referral-page">รายการขอส่งตัวนักศึกษา</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/view-status">ดูสถานะ</a></li>
-                    
+                    <sec:authorize access="isAuthenticated()">
+                    	<li class="nav-item dropdown">
+	                        <a class="nav-link dropdown-toggle text-white col-sm-3" href="#" role="button" data-bs-toggle="dropdown">แบบฟอร์มคำร้องขอ</a>
+	                        <ul class="dropdown-menu">
+	                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/request-form/add-request-form-page">ขอความอนุเคราะห์</a></li>
+	                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/referral-form/add-referral-form-page">ขอส่งตัวนักศึกษา</a></li>
+	                        </ul>
+	                    </li>
+	                    <li class="nav-item dropdown">
+	                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">รายการคำร้องขอ</a>
+	                        <ul class="dropdown-menu">
+	                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/request-form/list-request-page">รายการขอความอนุเคราะห์</a></li>
+	                            <li><a class="dropdown-item col-sm-2" href="${pageContext.request.contextPath}/referral-form/list-referral-page">รายการขอส่งตัวนักศึกษา</a></li>
+	                        </ul>
+	                    </li>
+	                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/view-status">ดูสถานะ</a></li>
+	                    
+	                   
+	                    <!-- เมนูสำหรับผู้ใช้ที่มี Role ADMIN  <c:if test="${sessionScope.role == 'ADMIN'}">  </c:if> -->
+	                    
+	                    
+		                <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/register-form">ลงทะเบียน</a></li>
+	                    
+	                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/faculty/list-coopeducation-page">รายการคำร้องขอฝึกงานและขอสหกิจศึกษา</a></li>
+                    </sec:authorize>
                    
-                    <!-- เมนูสำหรับผู้ใช้ที่มี Role ADMIN  <c:if test="${sessionScope.role == 'ADMIN'}">  </c:if> -->
-                    
-                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/add-major-page">เพิ่มสาขา</a></li>
-                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/list-major-page">รายชื่อสาขา</a></li>
-	                <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/register-form">ลงทะเบียน</a></li>
-                    
-                    <li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/faculty/list-coopeducation-page">รายการคำร้องขอฝึกงานและขอสหกิจศึกษา</a></li>
+                   	<sec:authorize access="hasAuthority('FACULTY_STAFF')">
+                   		<li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/add-major-page">เพิ่มสาขา</a></li>
+	               		<li class="nav-item"> <a class="nav-link text-white" href="${pageContext.request.contextPath}/majors/list-major-page">รายชื่อสาขา</a></li>
+                   	</sec:authorize>
                    
+                   	<sec:authorize access="!isAuthenticated()">
+                    	<li class="nav-item"> <a class="nav-link boder-button" href="${pageContext.request.contextPath}/login">เข้าสู่ระบบ</a></li>
+                    </sec:authorize>
+                   
+                    <sec:authorize access="isAuthenticated()">
+                    	<li class="nav-item"> <a class="nav-link boder-button" href="${pageContext.request.contextPath}/logout">ออกจากระบบ</a></li>
+                    </sec:authorize>
                     
-                    <li class="nav-item"> <a class="nav-link boder-button" href="${pageContext.request.contextPath}/logout">ออกจากระบบ</a></li>
 
                 </ul>
         </div>
